@@ -21,7 +21,7 @@ App Flutter com arquitetura **MVVM + Command pattern**. Este arquivo é contrato
 ## Fluxo de dependências (direção única)
 
 ```
-View → ViewModel → Command0/Command1 → Action privada → Repository → dio
+View → ViewModel → Command0/Command1 → Action privada → Repository → Service → dio
 ```
 
 - View nunca conhece `Repository` ou `dio`.
@@ -34,8 +34,8 @@ View → ViewModel → Command0/Command1 → Action privada → Repository → d
 
 - `lib/config/` — env, constantes, feature flags
 - `lib/features/<feat>/` — `<feat>_providers.dart` + `view/` + `view_model/` + `widgets/` (sem pasta `commands/`)
-- `lib/domain/` — Models, entidades, interfaces de Repository
-- `lib/data/` — Implementações de Repository, services, DTOs, mapeadores
+- `lib/domain/` — Models, entidades do domínio
+- `lib/data/` — Repositories e Services (interface + implementação juntas em `repositories/<feat>/` e `services/<feat>/`), DTOs, mapeadores
 - `lib/core/` — infra compartilhada:
   - `result/`, `command/` — tipos base (**leia os arquivos antes de usar**)
   - `exceptions/` — `AppException` + HTTP/rede/desconhecidas tipadas
@@ -80,7 +80,7 @@ View → ViewModel → Command0/Command1 → Action privada → Repository → d
 - Retorna `Future<Result<T>>`. Nunca throw para fora.
 - Captura `DioException` e mapeia para `AppException` via `lib/core/errors/`.
 - Converte DTO → Model antes de retornar `Ok`.
-- Interface em `domain/`, implementação em `data/`.
+- Interface e implementação juntas em `lib/data/repositories/<feat>/`.
 
 ---
 
@@ -129,6 +129,7 @@ Toda feature nova: **unit** (Repository + ViewModel), **widget** (Screen), **int
 - Sem `dynamic` exceto fronteira JSON.
 - Dartdoc em classes públicas de `domain/` e `core/`.
 - Sealed class para tipos-soma.
+- **Services:** sufixo `_remote` (rede/externo), `_local` (dispositivo), `_mock` (desenvolvimento sem backend).
 - **GitHub Flow:** branch curta a partir de `main` atualizada, merge via PR. `main` sempre deployable.
 - **Conventional Commits** em português, < 72 chars. Branches: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`.
 
@@ -167,6 +168,7 @@ flutter test integration_test/
 - ❌ `throw` atravessando camadas.
 - ❌ `Exception` genérica — use `AppException`.
 - ❌ Instanciar `Repository` em Widget/ViewModel.
+- ❌ Mockar no Repository — mocke no Service; Repository fica estável quando o backend chegar.
 - ❌ Provider de feature registrado direto em `main.dart` — use `<feature>Providers()`.
 - ❌ `Provider<X>` para ChangeNotifier — use `ChangeNotifierProvider<X>`.
 - ❌ `Navigator.push(MaterialPageRoute(...))`.
