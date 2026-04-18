@@ -129,6 +129,7 @@ Toda feature nova: **unit** (Repository + ViewModel), **widget** (Screen), **int
 - Sem `dynamic` exceto fronteira JSON.
 - Dartdoc em classes públicas de `domain/` e `core/`.
 - Sealed class para tipos-soma.
+- **GitHub Flow:** branch curta a partir de `main` atualizada, merge via PR. `main` sempre deployable.
 - **Conventional Commits** em português, < 72 chars. Branches: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`.
 
 ---
@@ -148,10 +149,11 @@ flutter test integration_test/
 
 ## Antes de responder
 
-1. Leia os arquivos — use `Glob`/`Read`, não assuma estrutura.
-2. Verifique se já existe algo equivalente (ViewModel, Repository, Exception). Reuso > duplicação.
-3. Pergunte antes de adicionar dependência em `pubspec.yaml`.
-4. Mudança em > 3 arquivos: proponha plano antes de codificar.
+1. **Ao iniciar feature/fix/chore novo:** atualizar `main`, criar branch (`feat/<slug>` / `fix/<slug>` / `chore/<slug>`), só então editar arquivos.
+2. Leia os arquivos — use `Glob`/`Read`, não assuma estrutura.
+3. Verifique se já existe algo equivalente (ViewModel, Repository, Exception). Reuso > duplicação.
+4. Pergunte antes de adicionar dependência em `pubspec.yaml`.
+5. Mudança em > 3 arquivos: proponha plano antes de codificar.
 
 ---
 
@@ -172,5 +174,6 @@ flutter test integration_test/
 - ❌ Duplicar `running`/`error` no ViewModel.
 - ❌ Desabilitar botão manualmente — `Command` já impede re-entrada.
 - ❌ Commit sem prefixo Conventional.
+- ❌ Commit direto em `main` — sempre via PR de branch.
 - ❌ PR sem teste.
 - ❌ Adicionar package sem me avisar.
