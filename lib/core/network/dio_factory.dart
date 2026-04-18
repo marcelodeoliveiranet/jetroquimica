@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:jetroquimica/core/config/environment.dart';
 import 'package:jetroquimica/core/network/auth_interceptor.dart';
+import 'package:jetroquimica/data/services/storage/shared_preferences_service.dart';
 
 class DioFactory {
   static Dio createDio(SharedPreferencesService storage) {

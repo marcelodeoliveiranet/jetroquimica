@@ -12,6 +12,7 @@ App Flutter com arquitetura **MVVM + Command pattern**. Este arquivo é contrato
 - **Navegação:** `go_router`
 - **HTTP:** `dio`
 - **Serialização:** `json_serializable`
+- **Igualdade por valor:** `equatable`
 - **Lints:** `flutter_lints`
 - **Mocks:** `mockito` + `build_runner`
 - **Plataformas:** Android, iOS, Web
@@ -130,6 +131,7 @@ Toda feature nova: **unit** (Repository + ViewModel), **widget** (Screen), **int
 - Dartdoc em classes públicas de `domain/` e `core/`.
 - Sealed class para tipos-soma.
 - **Services:** sufixo `_remote` (rede/externo), `_local` (dispositivo), `_mock` (desenvolvimento sem backend).
+- **Models:** `const` constructor, campos `final`. Estender `Equatable` (listando campos em `props`) quando precisar comparar por valor. `toJson`/`fromJson` só se o modelo é serializado de fato.
 - **GitHub Flow:** branch curta a partir de `main` atualizada, merge via PR. `main` sempre deployable.
 - **Conventional Commits** em português, < 72 chars. Branches: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`.
 
@@ -169,6 +171,7 @@ flutter test integration_test/
 - ❌ `Exception` genérica — use `AppException`.
 - ❌ Instanciar `Repository` em Widget/ViewModel.
 - ❌ Mockar no Repository — mocke no Service; Repository fica estável quando o backend chegar.
+- ❌ `==`/`hashCode` manuais em Models — usar `Equatable`.
 - ❌ Provider de feature registrado direto em `main.dart` — use `<feature>Providers()`.
 - ❌ `Provider<X>` para ChangeNotifier — use `ChangeNotifierProvider<X>`.
 - ❌ `Navigator.push(MaterialPageRoute(...))`.
