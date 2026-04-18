@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jetroquimica/core/config/dependencies.dart';
 import 'package:jetroquimica/core/routing/app_router.dart';
+import 'package:jetroquimica/data/repositories/auth/auth_repository.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jetroquimica/data/services/storage/shared_preferences_service.dart';
 
 class AuthInterceptor extends Interceptor {
   final SharedPreferencesService _storage;
