@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:jetroquimica/core/routing/routes.dart';
+import 'package:provider/provider.dart';
 
 GoRouter createRouter({required AuthRepository authRepository}) {
   return GoRouter(
@@ -25,7 +26,7 @@ GoRouter createRouter({required AuthRepository authRepository}) {
         builder: (context, state) {
           return MultiProvider(
             providers: [
-              Provider(
+              ChangeNotifierProvider(
                 create: (_) => LoginViewmodel(authRepository: authRepository),
               ),
             ],
